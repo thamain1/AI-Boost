@@ -1,0 +1,22 @@
+{
+  "author":"Jesse Morgan"
+,"pluginName":"AI-Boost Chat"
+,"pluginDescription":"ChatGPT Plugin"
+,"supportEmail":"lgoldenjr@transformdata.tech"
+,"control":{
+  "content":{
+    "enabled":true
+  }
+, "design":{
+    "enabled":false
+  }
+, "settings":{
+    "enabled":false
+  }
+}
+,"widget":{
+
+},
+  "features" : [],
+  "languages" : ["en"]
+}
