@@ -18,7 +18,7 @@ app.post('/api/message', async (req, res) => {
     "max_tokens": 60
   };
 
-  const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
+  const response = await fetch('https://api.openai.com/v1/engines/text-davinci-002/completions', {
     method: 'POST',
     headers: {
       'Authorization': 'Bearer ' + process.env.OPENAI_API_KEY,
