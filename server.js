@@ -1,8 +1,8 @@
 // server.js
 
 const express = require('express');
-const fetch = require('node-fetch');
 const cors = require('cors');
+const { Configuration, OpenAIApi } = require('openai'); // import OpenAI
 require('dotenv').config()
 
 const app = express();
@@ -10,31 +10,35 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/api/message', async (req, res) => {
-  const message = req.body.message;
+    const message = req.body.message;
 
-  const prompt = {
-    "model": "text-davinci-002",
-    "prompt": message,
-    "max_tokens": 60
-  };
+    const configuration = new Configuration({
+        organization: process.env.OPENAI_ORGANIZATION_ID, // use the OpenAI Organization ID from the environment variable
+        apiKey: process.env.OPENAI_API_KEY, // use the OpenAI API Key from the environment variable
+    });
+    const openai = new OpenAIApi(configuration);
 
-  const response = await fetch('https://api.openai.com/v1/engines/text-davinci-002/completions', {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Bearer ' + process.env.OPENAI_API_KEY,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(prompt)
-  });
+    try {
+        const prompt = {
+            "engine": "text-davinci-002",
+            "prompt": message,
+            "max_tokens": 60
+        };
 
-  if (!response.ok) {
-    return res.status(500).json({ error: 'Failed to chat with OpenAI API' });
-  }
+        const aiRes = await openai.createCompletion(prompt); // use the OpenAI API client to generate a completion
 
-  const data = await response.json();
-  const aiMessage = data.choices[0].text.trim();
+        const aiMessage = aiRes.data.choices[0].text.trim();
 
-  res.json({ message: aiMessage });
+        res.json({ message: aiMessage });
+    } catch (error) {
+        console.log('Error:', error.message);
+        return res.status(500).json({ error: 'Failed to chat with OpenAI API' });
+    }
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });
 
 const port = process.env.PORT || 3000;
