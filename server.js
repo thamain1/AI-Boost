@@ -18,10 +18,6 @@ const corsOptions = {
 
 app.options('*', cors(corsOptions)); // preflight request for any route
 app.use(cors(corsOptions)); // use the cors middleware for all routes
-
-app.use(express.json());
-
-app.use(cors());
 app.use(express.json());
 
 app.post('/api/message', async (req, res) => {
