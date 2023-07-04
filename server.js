@@ -24,7 +24,7 @@ app.post('/api/message', async (req, res) => {
     const message = req.body.message;
 
     const configuration = new Configuration({
-        organization: process.env.org-nCmaFqaxIjwLeONFJ8jFy0HB, // use the OpenAI Organization ID from the environment variable
+        organization: process.env.org-OPENAI_ORG_ID, // use the OpenAI Organization ID from the environment variable
         apiKey: process.env.OPENAI_API_KEY, // use the OpenAI API Key from the environment variable
     });
     const openai = new OpenAIApi(configuration);
