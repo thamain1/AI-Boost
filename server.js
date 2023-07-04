@@ -6,6 +6,21 @@ const { Configuration, OpenAIApi } = require('openai'); // import OpenAI
 require('dotenv').config()
 
 const app = express();
+// CORS configuration with preflight support
+const corsOptions = {
+  origin: 'http://localhost', // replace with your client's URI
+  methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 200,
+  preflightContinue: false
+};
+
+app.options('*', cors(corsOptions)); // preflight request for any route
+app.use(cors(corsOptions)); // use the cors middleware for all routes
+
+app.use(express.json());
+
 app.use(cors());
 app.use(express.json());
 
