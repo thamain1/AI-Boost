@@ -7,7 +7,7 @@ require('dotenv').config();
 
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:3000', // replace with the origin of your mobile app
+  origin: 'https://app.buildfire.com', // replace with the origin of your mobile app
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
